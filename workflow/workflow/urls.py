@@ -1,12 +1,15 @@
-from django.conf.urls import patterns, include, url
+# .. Imports
+from rest_framework_nested import routers
 
-from django.contrib import admin
-admin.autodiscover()
+from authentication.views import AccountViewSet
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'workflow.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+router = routers.SimpleRouter()
+router.register(r'accounts', AccountViewSet)
 
-    url(r'^admin/', include(admin.site.urls)),
+urlpatterns = patterns(
+     '',
+    # ... URLs
+    url(r'^api/v1/', include(router.urls)),
+
+    url('^.*$', IndexView.as_view(), name='index'),
 )
